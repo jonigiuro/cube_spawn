@@ -11,14 +11,14 @@ var camerapos = -300;
 var emit = true;
 var rotation = 0.0;
 var wavelength = 20.0;
-var sin_tan = false;
+var sin_abs = false;
 var params = {
 	randomness: 0,
 	randsize: 0,
 	camerapos: -300,
 	rotation: 0.0,
 	wavelength: 20,
-	sin_tan: false,
+	sin_abs: false,
 	emit: true
 };
 
@@ -114,8 +114,8 @@ function drawCube(){
 			// push cube (erhm) into array
 			cubenum.push(sphere);
 			// update xspeeds array
-			if(params.sin_tan == false) xspeeds.push(Math.sin(cubenum.length/params.wavelength)*2);
-			else xspeeds.push(Math.tan(cubenum.length/params.wavelength)*2);
+			if(params.sin_abs == false) xspeeds.push(Math.sin(cubenum.length/params.wavelength)*2);
+			else xspeeds.push(Math.abs(Math.tan(cubenum.length/params.wavelength)*2));
 			
 			scene.addChild(sphere);
 	}

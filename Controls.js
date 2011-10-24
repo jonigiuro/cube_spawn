@@ -7,6 +7,6 @@ $(document).ready(function(){
 	gui.add(params, 'camerapos').min(-500).max(-50).step(1)
 	gui.add(params, 'rotation').min(0).max(0.1).step(0.01)
 	gui.add(params, 'wavelength').min(3).max(40).step(1)
-	gui.add(params, 'sin_tan')
+	gui.add(params, 'sin_abs')
 	gui.add(params, 'emit')
 })
