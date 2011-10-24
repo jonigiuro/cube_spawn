@@ -9,10 +9,12 @@ var randomness = 0.0;
 var randsize = 0;
 var camerapos = -300;
 var emit = true;
+var rotation = 0.0;
 var params = {
 	randomness: 0,
 	randsize: 0,
 	camerapos: -300,
+	rotation: 0.0,
 	emit: true
 };
 
@@ -139,8 +141,8 @@ function animate() {
 	cubenum[q].position.y += speeds[q] * times[q] + 0.5 * (gravity) * times[q] * times[q];
 	cubenum[q].position.z = cubenum[q].position.z-0.8
 	cubenum[q].position.x += xspeeds[q]/10;
-	cubenum[q].rotation.y += 0.1;
-	cubenum[q].rotation.x += 0.1;
+	cubenum[q].rotation.y += params.rotation;
+	cubenum[q].rotation.x += params.rotation;
 	if (cubenum[q].position.y < (-20)){
 		scene.removeChild(cubenum[q])
 	}
