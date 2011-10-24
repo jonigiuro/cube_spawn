@@ -7,6 +7,14 @@ var times=new Array();
 var col = 0
 var randomness = 0.0;
 var randsize = 0;
+var camerapos = -300;
+var emit = true;
+var params = {
+	randomness: 0,
+	randsize: 0,
+	camerapos: -300,
+	emit: true
+};
 
 var WIDTH = 800,
     HEIGHT = 800;
@@ -26,7 +34,7 @@ var camera = new THREE.Camera(  VIEW_ANGLE,
                                 FAR  );
 var scene = new THREE.Scene();
 
-camera.position.z = -300;
+camera.position.z = camerapos;
 camera.position.x = -0;
 camera.position.y=0;
 
@@ -76,47 +84,55 @@ $('#container').click(function(){
 		speeds[p]=speeds[p] * (1.1)
 	}
 });
+function drawCube(){
+		if (params.emit == true){
+			col++;
+		var sphereMaterial = new THREE.MeshPhongMaterial(
+		{
+		    color: '0x'+ Math.floor((col%256-256)*(-1)).toString(16)+ Math.floor(col%128).toString(16)+ Math.floor(col%256).toString(16)
+			//color: '0xFFFFFF'
+		});
+		var sphere = new THREE.Mesh(
+		  new THREE.CubeGeometry(1 + Math.random()*params.randsize / 100, 1 + Math.random()*randsize / 100, 1 + Math.random()*randsize / 100, 1),
+		  sphereMaterial);
+			sphere.overdraw = true;
+			sphere.position.x=0;
+			sphere.position.y=0;
+			sphere.position.z=0;
+			sphere.rotation.x=Math.random()+359;
+			sphere.rotation.y=Math.random()+359;
+			sphere.rotation.z=Math.random()+359;
+
+			// add the sphere to the scene
+			times.push(1);
+			//speeds.push(Math.random()*.5+5);
+			speeds.push(5.5 + Math.random()*params.randomness / 100);
+			//speeds.push(5.0);
+
+			cubenum.push(sphere);
+
+			xspeeds.push(Math.sin(cubenum.length/20)*2);
+			scene.addChild(sphere);
+			renderer.render(scene, camera);
+
+	}
+}
 
 $('#container').mousemove(function(e){
-	for(i=0;i<1;i++){
-		col++;
-	var sphereMaterial = new THREE.MeshPhongMaterial(
-	{
-	    color: '0x'+ Math.floor((col%256-256)*(-1)).toString(16)+ Math.floor(col%128).toString(16)+ Math.floor(col%256).toString(16)
-		//color: '0xFFFFFF'
-	});
-	var sphere = new THREE.Mesh(
-	  new THREE.CubeGeometry(1 + Math.random()*randsize / 100, 1 + Math.random()*randsize / 100, 1 + Math.random()*randsize / 100, 1),
-	  sphereMaterial);
-		sphere.overdraw = true;
-		sphere.position.x=0;
-		sphere.position.y=0;
-		sphere.position.z=0;
-		sphere.rotation.x=Math.random()+359;
-		sphere.rotation.y=Math.random()+359;
-		sphere.rotation.z=Math.random()+359;
-
-		// add the sphere to the scene
-		times.push(1);
-		//speeds.push(Math.random()*.5+5);
-		speeds.push(5.5 + Math.random()*randomness / 100);
-		//speeds.push(5.0);
-		
-		cubenum.push(sphere);
-		
-		xspeeds.push(Math.sin(cubenum.length/20)*2);
-		scene.addChild(sphere);
-		renderer.render(scene, camera);
-	}
-		if(cubenum.length == 1){
+	
+		if(cubenum.length == 0){
 			animate();
 	}
 	camera.position.y = e.clientY / 2 - 40;
 	camera.position.x = e.clientX / 4 - 200;
+	
+
 })
 
 function animate() {
 	//cube1.rotation.y+=0.02;
+	camera.position.z = params.camerapos;
+	drawCube();
 	for(q=0; q<cubenum.length;q++){
 	times[q] += 0.001;
 	//cubenum[q].position.x = cubenum[q].position.x / speed;
