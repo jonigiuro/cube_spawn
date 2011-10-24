@@ -12,11 +12,13 @@ var emit = true;
 var rotation = 0.0;
 var wavelength = 20.0;
 var sin_abs = false;
+var amplitude = 2;
 var params = {
 	randomness: 0,
 	randsize: 0,
 	camerapos: -300,
 	rotation: 0.0,
+	amplitude: 2.0,
 	wavelength: 20,
 	sin_abs: false,
 	emit: true
@@ -24,7 +26,6 @@ var params = {
 
 var WIDTH = 800,
     HEIGHT = 800;
-
 
 var VIEW_ANGLE = 30,
     ASPECT = WIDTH / HEIGHT,
@@ -114,8 +115,8 @@ function drawCube(){
 			// push cube (erhm) into array
 			cubenum.push(sphere);
 			// update xspeeds array
-			if(params.sin_abs == false) xspeeds.push(Math.sin(cubenum.length/params.wavelength)*2);
-			else xspeeds.push(Math.abs(Math.tan(cubenum.length/params.wavelength)*2));
+			if(params.sin_abs == false) xspeeds.push(Math.sin(cubenum.length/params.wavelength)*params.amplitude);
+			else xspeeds.push(Math.abs(Math.tan(cubenum.length/params.wavelength)*params.amplitude));
 			
 			scene.addChild(sphere);
 	}
@@ -123,7 +124,7 @@ function drawCube(){
 }
 
 $('#container').mousemove(function(e){
-	// I want the animate() method to be triggered only once from here, not each time I move the mouse
+	// I want the animate() method to be triggered only once from here, not each time I touch the mouse
 	if(cubenum.length == 0){
 		animate();
 	}
@@ -136,22 +137,26 @@ function animate() {
 	drawCube();
 	for(q=0; q<cubenum.length;q++){
 		times[q] += 0.001;
+		
 		//cubenum[q].position.x = cubenum[q].position.x / speed;
 		cubenum[q].position.y += speeds[q] * times[q] + 0.5 * (gravity) * times[q] * times[q];
 		cubenum[q].position.z = cubenum[q].position.z - 0.8
 		cubenum[q].position.x += xspeeds[q] / 10;
 		cubenum[q].rotation.y += params.rotation;
 		cubenum[q].rotation.x += params.rotation;
+		
 		// Remove cube if it goes down too deep
 		if (cubenum[q].position.y < (-20)){
 			scene.removeChild(cubenum[q]);
 		}
+		
 		// Or up too high
 		if (cubenum[q].position.y > (140)){
 			scene.removeChild(cubenum[q])
 		}
 	}
-	// Unleash the fury
+	
+	// Unleash the fury!!!!
 	renderer.render( scene, camera );
 	requestAnimFrame(animate);
 };
