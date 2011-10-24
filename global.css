@@ -1,0 +1,144 @@
+body{
+	background-color:#000;
+	font-family:"Helvetica", "Arial";
+	font-size:10px;
+}
+
+#container{
+	border:2px solid #bbb;
+	width:800px;
+	height:800px;
+	background-color:#fff;
+	margin: 20px auto;
+}
+
+#randpiu{
+	padding:5px;
+	width:150px;
+	position:fixed;
+	top:50px;
+	right:0px;
+	background-color:#555;
+	color: #fff;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+}
+
+#randmeno{
+	padding:5px;
+	width:150px;
+	position:fixed;
+	top:80px;
+	right:0px;
+	background-color:#555;
+	color: #fff;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+}
+
+#randmeno:hover, #randpiu:hover, #sizeplus:hover, #sizeminus:hover{
+	cursor:pointer;
+	color:#f55;
+	
+}
+
+#randvalue{
+	padding:5px;
+	width:150px;
+	position:fixed;
+	top:110px;
+	right:0px;
+	background-color:#555;
+	color: #fff;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+}
+
+#sizeplus{
+	padding:5px;
+	width:150px;
+	position:fixed;
+	top:140px;
+	right:0px;
+	background-color:#555;
+	color: #fff;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+}
+
+#sizeminus{
+	padding:5px;
+	width:150px;
+	position:fixed;
+	top:170px;
+	right:0px;
+	background-color:#555;
+	color: #fff;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+}
+
+#sizevalue{
+	padding:5px;
+	width:150px;
+	position:fixed;
+	top:200px;
+	right:0px;
+	background-color:#555;
+	color: #fff;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+}
+
+#click{
+	padding:5px;
+	width:150px;
+	position:fixed;
+	top:230px;
+	right:0px;
+	background-color:#f55;
+	color: #fff;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+}
+
+#reset{
+	padding:5px;
+	width:150px;
+	position:fixed;
+	top:260px;
+	right:0px;
+	background-color:#55f;
+	color: #fff;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+}
+
+#reset:hover{
+	cursor:pointer;
+	text-decoration:underline;
+}
