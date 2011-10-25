@@ -116,7 +116,7 @@ function drawCube(){
 			cubenum.push(sphere);
 			// update xspeeds array
 			if(params.sin_abs == false) xspeeds.push(Math.sin(cubenum.length/params.wavelength)*params.amplitude);
-			else xspeeds.push(Math.abs(Math.tan(cubenum.length/params.wavelength)*params.amplitude));
+			else xspeeds.push(Math.abs(Math.sin(cubenum.length/params.wavelength)*params.amplitude) );
 			
 			scene.addChild(sphere);
 	}
