@@ -13,6 +13,7 @@ var rotation = 0.0;
 var wavelength = 20.0;
 var sin_abs = false;
 var amplitude = 2;
+var counter = 0;
 var params = {
 	randomness: 0,
 	randsize: 0,
@@ -24,8 +25,8 @@ var params = {
 	emit: true
 };
 
-var WIDTH = 800,
-    HEIGHT = 800;
+var WIDTH = window.innerWidth - 20,
+    HEIGHT = window.innerHeight - 20;
 
 var VIEW_ANGLE = 30,
     ASPECT = WIDTH / HEIGHT,
@@ -52,8 +53,7 @@ $container.append(renderer.domElement);
 
 // Create Lights
 var pointLight = new THREE.PointLight( 0x999999 );
-var pointLight2 = new THREE.DirectionalLight( 0xFFFFFF, 0.2, 100 );
-pointLight2.castShadow = true;
+var pointLight2 = new THREE.DirectionalLight( 0xFFFFFF, .5, 100 );
 // set light positions
 pointLight.position.x = - 10;
 pointLight.position.y = - 20;
@@ -78,13 +78,12 @@ var planeMaterial = new THREE.MeshPhongMaterial(
 var plane = new THREE.Mesh(
 	new THREE.CubeGeometry(100, 1, 100, 1), planeMaterial);
 var cube1 = new THREE.Mesh(
-  new THREE.CubeGeometry(5, 2, 5, 1),
-  sphereMaterial1);
-scene.addChild(plane)
-scene.addChild(cube1)
+	new THREE.CubeGeometry(5, 2, 5, 1),
+	sphereMaterial1);
+	scene.addChild(plane)
+	scene.addChild(cube1)
 // draw!
 plane.position.y=-2;
-
 $('#container').click(function(){
 	for(p=0;p<cubenum.length;p++){
 		xspeeds[p]=xspeeds[p] * (20)
@@ -95,7 +94,7 @@ function drawCube(){
 		if (params.emit == true){
 			col++;
 		var sphereMaterial = new THREE.MeshPhongMaterial(
-		{color: '0x'+ Math.floor((col%256-256)*(-1)).toString(16)+ Math.floor(col%128).toString(16)+ Math.floor(col%256).toString(16)
+		{color: '0x'+ Math.floor(Math.random()*255).toString(16)+ Math.floor(Math.random()*255).toString(16)+ Math.floor(Math.random()*255).toString(16)
 		});
 		var sphere = new THREE.Mesh(
 		  new THREE.CubeGeometry(1 + Math.random()*params.randsize / 100, 1 + Math.random()*randsize / 100, 1 + Math.random()*randsize / 100, 1),
@@ -115,7 +114,7 @@ function drawCube(){
 			// push cube (erhm) into array
 			cubenum.push(sphere);
 			// update xspeeds array
-			if(params.sin_abs == false) xspeeds.push(Math.sin(cubenum.length/params.wavelength)*params.amplitude);
+			if(!params.sin_abs) xspeeds.push(Math.sin(cubenum.length/params.wavelength)*params.amplitude);
 			else xspeeds.push(Math.abs(Math.sin(cubenum.length/params.wavelength)*params.amplitude) );
 			
 			scene.addChild(sphere);
@@ -134,24 +133,28 @@ $('#container').mousemove(function(e){
 
 function animate() {
 	camera.position.z = params.camerapos;
-	drawCube();
+	counter++;
+	if(counter % 10 == 0){
+		drawCube();
+	}
+	
 	for(q=0; q<cubenum.length;q++){
 		times[q] += 0.001;
-		
+		cur_cube = cubenum[q]
 		//cubenum[q].position.x = cubenum[q].position.x / speed;
-		cubenum[q].position.y += speeds[q] * times[q] + 0.5 * (gravity) * times[q] * times[q];
-		cubenum[q].position.z = cubenum[q].position.z - 0.8
-		cubenum[q].position.x += xspeeds[q] / 10;
-		cubenum[q].rotation.y += params.rotation;
-		cubenum[q].rotation.x += params.rotation;
+		cur_cube.position.y += speeds[q] * times[q] + 0.5 * (gravity) * times[q] * times[q];
+		cur_cube.position.z = cur_cube.position.z - 0.8
+		cur_cube.position.x += xspeeds[q] / 10;
+		cur_cube.rotation.y += params.rotation;
+		cur_cube.rotation.x += params.rotation;
 		
 		// Remove cube if it goes down too deep
-		if (cubenum[q].position.y < (-20)){
+		if (cur_cube.position.y < (-20)){
 			scene.removeChild(cubenum[q]);
 		}
 		
 		// Or up too high
-		if (cubenum[q].position.y > (140)){
+		if (cur_cube.position.y > (140)){
 			scene.removeChild(cubenum[q])
 		}
 	}
